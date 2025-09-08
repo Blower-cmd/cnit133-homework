@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 2 - Part 2</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Homework 2 - Part 2</h1>
+  <form id="numbersForm">
+    <label>Number 1: <input type="text" id="num1"></label><br><br>
+    <label>Number 2: <input type="text" id="num2"></label><br><br>
+    <label>Number 3: <input type="text" id="num3"></label><br><br>
+    <button type="button" onclick="processNumbers()">Process</button>
+    <button type="reset" onclick="clearResults()">Clear</button>
+    <button type="button" id="fadeBtn">Fade Results</button>
+  </form>
+  <br>
+  <textarea id="results" rows="7" cols="40" readonly></textarea>
+  <br><br>
+  <a href="hw2.html">Back to Homework 2</a>
+  <script>
+    function processNumbers() {
+      let n1 = parseInt(document.getElementById("num1").value);
+      let n2 = parseInt(document.getElementById("num2").value);
+      let n3 = parseInt(document.getElementById("num3").value);
+      if (isNaN(n1) || isNaN(n2) || isNaN(n3)) {
+        document.getElementById("results").value = "Please enter three valid integers.";
+        $("#results").stop(true, true).fadeTo("fast", 1);
+        return;
+      }
+      let sum = n1 + n2 + n3;
+      let avg = sum / 3;
+      let prod = n1 * n2 * n3;
+      let smallest = Math.min(n1, n2, n3);
+      let largest = Math.max(n1, n2, n3);
+      document.getElementById("results").value =
+        `Sum: ${sum}\n` +
+        `Average: ${avg}\n` +
+        `Product: ${prod}\n` +
+        `Smallest: ${smallest}\n` +
+        `Largest: ${largest}`;  
+      $("#results").stop(true, true).fadeTo("fast", 1);
+    }
+    function clearResults() {
+      document.getElementById("results").value = "";
+      $("#results").stop(true, true).fadeTo("fast", 1); 
+    }
+    $(document).ready(function() {
+      $("#fadeBtn").click(function() {
+        $("#results").fadeTo("slow", 0.3); 
+      });
+    });
+  </script>
+</body>
+</html>
