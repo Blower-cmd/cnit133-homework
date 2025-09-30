@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part 1 - Student Grades</title>
+  <link rel="stylesheet" href="hw3_part1.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Student Grades</h1>
+    
+    <form id="gradeForm">
+      <div class="form-group">
+        <label for="homework">Homework Average (0-100):</label>
+        <input type="number" id="homework" min="0" max="100" required>
+      </div>
+
+      <div class="form-group">
+        <label for="midterm">Mid-Term Exam Score (0-100):</label>
+        <input type="number" id="midterm" min="0" max="100" required>
+      </div>
+
+      <div class="form-group">
+        <label for="final">Final Exam Score (0-100):</label>
+        <input type="number" id="final" min="0" max="100" required>
+      </div>
+
+      <div class="form-group">
+        <label for="participation">Participation (0-100):</label>
+        <input type="number" id="participation" min="0" max="100" required>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="submit-btn">Calculate Grade</button>
+        <button type="button" class="clear-btn" onclick="clearForm()">Clear Form</button>
+      </div>
+    </form>
+
+    <div id="output" class="output" style="display: none;"></div>
+
+    <a href="hw3.html" class="back-link">← Back to Homework 3</a>
+  </div>
+
+  <script>
+    document.getElementById('gradeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      calculateGrade();
+    });
+
+    function calculateGrade() {
+      const homework = parseFloat(document.getElementById('homework').value);
+      const midterm = parseFloat(document.getElementById('midterm').value);
+      const final = parseFloat(document.getElementById('final').value);
+      const participation = parseFloat(document.getElementById('participation').value);
+      const output = document.getElementById('output');
+
+      if (isNaN(homework) || isNaN(midterm) || isNaN(final) || isNaN(participation)) {
+        output.className = 'output error';
+        output.style.display = 'block';
+        output.innerHTML = '<strong>Error:</strong> All fields must contain valid numbers.';
+        return;
+      }
+
+      if (homework < 0 || homework > 100 || midterm < 0 || midterm > 100 || 
+          final < 0 || final > 100 || participation < 0 || participation > 100) {
+        output.className = 'output error';
+        output.style.display = 'block';
+        output.innerHTML = '<strong>Error:</strong> All grades must be between 0 and 100.';
+        return;
+      }
+
+      const finalAverage = (0.5 * homework) + (0.2 * midterm) + (0.2 * final) + (0.1 * participation);
+      const roundedAverage = Math.round(finalAverage);
+
+      let letterGrade;
+      if (roundedAverage >= 90) {
+        letterGrade = 'A';
+      } else if (roundedAverage >= 80) {
+        letterGrade = 'B';
+      } else if (roundedAverage >= 70) {
+        letterGrade = 'C';
+      } else if (roundedAverage >= 60) {
+        letterGrade = 'D';
+      } else {
+        letterGrade = 'F';
+      }
+
+      output.className = 'output success';
+      output.style.display = 'block';
+      output.innerHTML = '<strong>Results:</strong><br>' +
+                        'Final Average: ' + roundedAverage + '<br>' +
+                        'Letter Grade: ' + letterGrade;
+
+      if (letterGrade === 'D' || letterGrade === 'F') {
+        output.innerHTML += '<br><br><strong>Student must retake the course.</strong>';
+      }
+    }
+
+    function clearForm() {
+      document.getElementById('gradeForm').reset();
+      document.getElementById('output').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

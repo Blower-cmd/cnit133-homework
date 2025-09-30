@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part 2 - Salesperson Commission</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="hw3_part2.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Salesperson Commission Calculator</h1>
+    <p class="subtitle">Base salary: $250/week + 9% commission on gross sales</p>
+
+    <div class="name-section">
+      <label for="salesName">Salesperson's Name:</label>
+      <input type="text" id="salesName" title="Please make sure that the salesperson's name is spelled correctly" required>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price per Unit</th>
+          <th>Quantity Sold</th>
+          <th class="right-align">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Item 1</td>
+          <td>$20.99</td>
+          <td><input type="number" id="qty1" min="0" value="0"></td>
+          <td class="right-align"><input type="text" id="total1" readonly value="$0.00"></td>
+        </tr>
+        <tr>
+          <td>Item 2</td>
+          <td>$12.75</td>
+          <td><input type="number" id="qty2" min="0" value="0"></td>
+          <td class="right-align"><input type="text" id="total2" readonly value="$0.00"></td>
+        </tr>
+        <tr>
+          <td>Item 3</td>
+          <td>$9.95</td>
+          <td><input type="number" id="qty3" min="0" value="0"></td>
+          <td class="right-align"><input type="text" id="total3" readonly value="$0.00"></td>
+        </tr>
+        <tr>
+          <td>Item 4</td>
+          <td>$35.89</td>
+          <td><input type="number" id="qty4" min="0" value="0"></td>
+          <td class="right-align"><input type="text" id="total4" readonly value="$0.00"></td>
+        </tr>
+        <tr>
+          <th colspan="3" class="right-align">Total Earnings:</th>
+          <th class="right-align"><input type="text" id="totalEarnings" readonly value="$0.00"></th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="button-group">
+      <button class="calculate-btn" onclick="calculateCommission()">Calculate</button>
+      <button class="clear-btn" onclick="clearForm()">Clear</button>
+    </div>
+
+    <div id="errorMsg" class="error-msg"></div>
+
+    <a href="hw3.html" class="back-link">← Back to Homework 3</a>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+      $("#salesName").tooltip();
+    });
+
+    const prices = [20.99, 12.75, 9.95, 35.89];
+
+    function calculateCommission() {
+      const errorMsg = document.getElementById('errorMsg');
+      const salesName = document.getElementById('salesName').value.trim();
+
+      if (salesName === '') {
+        errorMsg.textContent = 'Error: Please enter the salesperson\'s name.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      const quantities = [];
+      for (let i = 1; i <= 4; i++) {
+        const qty = parseFloat(document.getElementById('qty' + i).value);
+        
+        if (isNaN(qty)) {
+          errorMsg.textContent = 'Error: Please enter valid numbers for all quantities.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+        
+        if (qty < 0) {
+          errorMsg.textContent = 'Error: Quantities cannot be negative.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+        
+        quantities.push(qty);
+      }
+
+      errorMsg.style.display = 'none';
+
+      let grossSales = 0;
+      for (let i = 0; i < 4; i++) {
+        const itemTotal = quantities[i] * prices[i];
+        grossSales += itemTotal;
+        document.getElementById('total' + (i + 1)).value = '$' + itemTotal.toFixed(2);
+      }
+
+      const commission = grossSales * 0.09;
+      const totalEarnings = 250 + commission;
+      
+      document.getElementById('totalEarnings').value = '$' + totalEarnings.toFixed(2);
+    }
+
+    function clearForm() {
+      document.getElementById('salesName').value = '';
+      
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('qty' + i).value = '0';
+        document.getElementById('total' + i).value = '$0.00';
+      }
+      
+      document.getElementById('totalEarnings').value = '$0.00';
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

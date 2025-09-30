@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 2 - Extra Credit</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px; }
+    th, td { text-align: right; }
+    td:first-child, th:first-child { text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>Homework 2 - Extra Credit</h1>
+  <button id="toggleInstructions">Click to Show/Hide Instructions</button>
+  <div id="instructions" style="display:none; margin-top:10px;">
+    <p>The foreign exchange rates in June 2021</p>
+    <p>Enter a dollar amount in the table below to see the corresponding foreign exchange values.</p>
+  </div>
+
+  <table id="exchangeTable">
+    <thead>
+      <tr>
+        <th>Currency</th>
+        <th>Rate</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Euro</td>
+        <td>0.92</td>
+        <td><input type="text" readonly></td>
+      </tr>
+      <tr>
+        <td>Canadian Dollar</td>
+        <td>1.38</td>
+        <td><input type="text" readonly></td>
+      </tr>
+      <tr>
+        <td>Hong Kong Dollar</td>
+        <td>7.81</td>
+        <td><input type="text" readonly></td>
+      </tr>
+      <tr>
+        <td>Japanese Yen</td>
+        <td>156.73</td>
+        <td><input type="text" readonly></td>
+      </tr>
+      <tr>
+        <td>Mexican Peso</td>
+        <td>18.41</td>
+        <td><input type="text" readonly></td>
+      </tr>
+      <tr>
+        <td>Enter Amount of U.S. Dollars</td>
+        <td colspan="2"><input type="text" id="usdAmount"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    $("#toggleInstructions").click(function() {
+      $("#instructions").slideToggle();
+    });
+    $("#usdAmount").focus(function() {
+      $(this).css("background-color", "#ffff99");
+    }).blur(function() {
+      $(this).css("background-color", "");
+    });
+    $("#usdAmount").on("input", function() {
+      let amount = parseFloat($(this).val());
+      if (isNaN(amount)) {
+        $("#exchangeTable tbody tr").each(function(index){
+          if(index < 5){
+            $(this).find("input").val("");
+          }
+        });
+        return;
+      }
+      $("#exchangeTable tbody tr").each(function(index){
+        if(index < 5){ 
+          let rate = parseFloat($(this).find("td:eq(1)").text());
+          let value = (amount * rate).toFixed(2);
+          $(this).find("input").val(value);
+        }
+      });
+    });
+  </script>
+  <br><br>
+  <a href="hw2.html">Back to Homework 2</a>
+</body>
+</html>
