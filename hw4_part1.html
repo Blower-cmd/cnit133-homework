@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 4 - Part 1</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9fafb;
+    }
+    h2 {
+      color: #1f2937;
+    }
+    #results {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    #draggable {
+      width: 180px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      color: white;
+      background-color: #2563eb;
+      border-radius: 10px;
+      cursor: grab;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>Part 1 - Looping Statements</h2>
+
+  <div id="results"></div>
+
+  <div id="draggable">Drag me anywhere!</div>
+
+  <script>
+    let product1 = 1, sum1 = 0;
+    for (let i = 5; i <= 25; i += 4) {
+      product1 *= i;
+      sum1 += i;
+    }
+
+    let i = 3, product2 = 1, sum2 = 0;
+    while (i <= 18) {
+      product2 *= i;
+      sum2 += i;
+      i += 3;
+    }
+
+    document.getElementById("results").innerHTML = `
+      <p>The result of 5 * 9 * 13 * 17 * 21 * 25 is <b>${product1.toLocaleString()}</b>.</p>
+      <p>The result of 5 + 9 + 13 + 17 + 21 + 25 is <b>${sum1.toLocaleString()}</b>.</p>
+      <hr>
+      <p>The result of 3 * 6 * 9 * 12 * 15 * 18 is <b>${product2.toLocaleString()}</b>.</p>
+      <p>The result of 3 + 6 + 9 + 12 + 15 + 18 is <b>${sum2.toLocaleString()}</b>.</p>
+    `;
+
+    $("#draggable").draggable();
+  </script>
+
+  <p><a href="hw4.html">Back to Homework 4 Main Page</a></p>
+</body>
+</html>
