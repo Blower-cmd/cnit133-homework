@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Homework 5 - Part 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width:900px; margin:30px auto; padding:0 16px; line-height:1.5; }
+    h1 { color:#1f6feb; }
+    form { margin-top:20px; }
+    label { display:block; margin:8px 0 4px; }
+    .group { margin-bottom:15px; }
+    button { margin:6px 6px 0 0; padding:6px 12px; border:none; background:#1f6feb; color:white; border-radius:6px; cursor:pointer; }
+    button:hover { background:#0d4fd1; }
+    #result { margin-top:20px; font-weight:bold; }
+    a { color:#1f6feb; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <h1>CNIT 133 Homework 5 - Part 1</h1>
+  <p><a href="hw5_main.html">Back to Homework 5 Main Page</a></p>
+
+  <form id="userForm">
+    <div class="group">
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" name="fullName">
+    </div>
+
+    <div class="group">
+      <label>Age Group:</label>
+      <input type="radio" id="age1" name="age" value="under21"> <label for="age1">Less than 21</label><br>
+      <input type="radio" id="age2" name="age" value="21to50"> <label for="age2">Between 21 and 50</label><br>
+      <input type="radio" id="age3" name="age" value="over50"> <label for="age3">Older than 50</label>
+    </div>
+
+    <div class="group">
+      <label>Browsers used:</label>
+      <input type="checkbox" id="firefox" name="browser" value="Firefox"> <label for="firefox">Firefox</label><br>
+      <input type="checkbox" id="edge" name="browser" value="Edge"> <label for="edge">Edge</label><br>
+      <input type="checkbox" id="chrome" name="browser" value="Chrome"> <label for="chrome">Chrome</label><br>
+      <input type="checkbox" id="safari" name="browser" value="Safari"> <label for="safari">Safari</label>
+    </div>
+
+    <div class="group">
+      <label for="movie">Favorite Movie Type:</label>
+      <select id="movie" name="movie">
+        <option value="">Select one</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+        <option value="Documentary">Documentary</option>
+        <option value="Science Fiction">Science Fiction</option>
+      </select>
+    </div>
+
+    <button type="button" id="submitBtn">Submit</button>
+    <button type="reset">Clear</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('userForm');
+    const result = document.getElementById('result');
+    const submitBtn = document.getElementById('submitBtn');
+
+    submitBtn.addEventListener('click', () => {
+      const name = document.getElementById('fullName').value.trim();
+      const age = document.querySelector('input[name="age"]:checked');
+      const browsers = document.querySelectorAll('input[name="browser"]:checked');
+      const movie = document.getElementById('movie').value;
+      let messages = [];
+
+      if (!name) messages.push("Please enter your full name.");
+      if (!age) messages.push("Please select your age group.");
+      if (browsers.length === 0) messages.push("Please select at least one browser.");
+      if (!movie) messages.push("Please select a movie type.");
+
+      if (messages.length > 0) {
+        result.style.color = "red";
+        result.textContent = messages.join(" ");
+      } else {
+        result.style.color = "green";
+        result.textContent = "Thanks, your data was submitted!";
+      }
+    });
+  </script>
+</body>
+</html>

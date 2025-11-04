@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 5 - Part 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .button-group {
+            margin-top: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+        button[type="reset"]:hover {
+            background-color: #da190b;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            min-height: 50px;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef5350;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #66bb6a;
+        }
+        .info-line {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1976d2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="hw5_main.html">&larr; Back to Homework 5 Main Page</a>
+        <h1>State Information Lookup</h1>
+        
+        <form id="stateForm">
+            <label for="stateInput">Enter State Name or Abbreviation:</label>
+            <input type="text" id="stateInput" name="stateInput" placeholder="e.g., California or CA">
+            
+            <div class="button-group">
+                <button type="submit">Get State Info</button>
+                <button type="reset">Clear Form</button>
+            </div>
+        </form>
+        
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const stateData = [
+            ["AL", "Alabama", "Montgomery", "4,903,185"],
+            ["AK", "Alaska", "Juneau", "731,545"],
+            ["AZ", "Arizona", "Phoenix", "7,278,717"],
+            ["AR", "Arkansas", "Little Rock", "3,017,825"],
+            ["CA", "California", "Sacramento", "39,512,223"],
+            ["CO", "Colorado", "Denver", "5,758,736"]
+        ];
+
+        const form = document.getElementById('stateForm');
+        const output = document.getElementById('output');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const input = document.getElementById('stateInput').value.trim();
+            
+            if (input === '') {
+                output.className = 'error';
+                output.innerHTML = 'Please enter a state name or abbreviation.';
+                return;
+            }
+            
+            const searchTerm = input.toUpperCase();
+            let found = false;
+            let stateInfo = null;
+            
+            for (let i = 0; i < stateData.length; i++) {
+                const abbr = stateData[i][0].toUpperCase();
+                const name = stateData[i][1].toUpperCase();
+                
+                if (searchTerm === abbr || searchTerm === name) {
+                    found = true;
+                    stateInfo = stateData[i];
+                    break;
+                }
+            }
+            
+            if (found) {
+                output.className = 'success';
+                output.innerHTML = `
+                    <div class="info-line"><strong>Thanks for your inquiry, here is the information you requested:</strong></div>
+                    <div class="info-line">State abbr = ${stateInfo[0]}</div>
+                    <div class="info-line">State Name = ${stateInfo[1]}</div>
+                    <div class="info-line">Capital = ${stateInfo[2]}</div>
+                    <div class="info-line">Population = ${stateInfo[3]}</div>
+                `;
+            } else {
+                const stateList = stateData.map(state => state[1]).join(', ');
+                output.className = 'error';
+                output.innerHTML = `Sorry, we do not have information about this state! We only have information about: ${stateList}.`;
+            }
+        });
+
+        form.addEventListener('reset', function() {
+            output.innerHTML = '';
+            output.className = '';
+        });
+    </script>
+</body>
+</html>
