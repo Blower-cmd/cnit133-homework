@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 1 - Decimal Number Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #2196F3;
+            padding-bottom: 10px;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2196F3;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+        .submit-btn:hover {
+            background-color: #0b7dda;
+        }
+        .clear-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .clear-btn:hover {
+            background-color: #da190b;
+        }
+        #output {
+            min-height: 100px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            white-space: pre-line;
+            line-height: 1.8;
+            color: #333;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #666;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Decimal Number Operations</h1>
+    
+    <div class="container">
+        <form id="decimalForm">
+            <label for="numberInput">Enter a number with at least 4 decimal places:</label>
+            <input type="text" id="numberInput" placeholder="e.g., 4.3264">
+            
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="clear-btn" onclick="clearForm()">Clear</button>
+            </div>
+        </form>
+        
+        <div id="output"></div>
+        
+        <a href="hw6.html">Back to Homework 6</a>
+    </div>
+
+    <script>
+        document.getElementById('decimalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            processNumber();
+        });
+
+        function processNumber() {
+            const input = document.getElementById('numberInput').value.trim();
+            const output = document.getElementById('output');
+            
+            if (input === '') {
+                output.innerHTML = '<span class="error">Please enter a number.</span>';
+                return;
+            }
+            
+            if (isNaN(input)) {
+                output.innerHTML = '<span class="error">Invalid input. Please enter a valid number.</span>';
+                return;
+            }
+            
+            const decimalPart = input.split('.')[1];
+            
+            if (!decimalPart || decimalPart.length < 4) {
+                output.innerHTML = '<span class="error">You need to type a number with at least 4 decimals, please try again.</span>';
+                return;
+            }
+            
+            const num = parseFloat(input);
+            
+            const rounded = Math.round(num);
+            const sqrtRounded = Math.round(Math.sqrt(num));
+            const tenths = num.toFixed(1);
+            const hundredths = num.toFixed(2);
+            const thousandths = num.toFixed(3);
+            
+            output.innerHTML = `<span class="success">You typed number ${num}
+Rounded to the nearest integer = ${rounded}
+Square root rounded to integer = ${sqrtRounded}
+Rounded to the nearest 10th position = ${tenths}
+Rounded to the nearest 100th position = ${hundredths}
+Rounded to the nearest 1000th position = ${thousandths}</span>`;
+        }
+
+        function clearForm() {
+            document.getElementById('numberInput').value = '';
+            document.getElementById('output').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
