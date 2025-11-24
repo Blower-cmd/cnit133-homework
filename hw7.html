@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 7 - Object Model and Event Model</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .part-section {
+            background-color: white;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .part-header {
+            padding: 15px 20px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+        }
+        .part-header:hover {
+            background-color: #45a049;
+        }
+        .part-content {
+            display: none;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .part-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .part-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        .part-content a:hover {
+            background-color: #0b7dda;
+        }
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .home-link:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <h1>CNIT 133 Homework 7 - Object Model and Event Model</h1>
+
+    <div class="part-section">
+        <div class="part-header" id="part1-header">PART 1</div>
+        <div class="part-content" id="part1-content">
+            <p>This page allows users to customize the appearance of text content by selecting different styles including background colors, text decorations (underline, bold, italic), and font sizes. All changes are applied in real-time</p>
+            <a href="hw7_part1.html">Go to Part 1</a>
+        </div>
+    </div>
+
+    <div class="part-section">
+        <div class="part-header" id="part2-header">PART 2</div>
+        <div class="part-content" id="part2-content">
+            <p>In this part when you hover over each homework link in the navigation, a submenu will appear showing all the parts and extra credit work for that particular homework assignment. </p>
+            <a href="hw7_part2.html">Go to Part 2</a>
+        </div>
+    </div>
+
+    <a href="index.html" class="home-link">Return to Course Main Page</a>
+
+    <script>
+        $(document).ready(function() {
+            $('#part1-header').click(function() {
+                $('#part1-content').slideToggle(400);
+            });
+
+            $('#part2-header').click(function() {
+                $('#part2-content').slideToggle(400);
+            });
+        });
+    </script>
+</body>
+</html>

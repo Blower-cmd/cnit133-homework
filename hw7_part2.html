@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 7 - Part 2</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 30px 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 0;
+            margin: 0 auto 50px;
+            max-width: 900px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav > ul > li {
+            position: relative;
+            margin: 0;
+        }
+        nav > ul > li > a {
+            display: block;
+            padding: 15px 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav > ul > li > a:hover {
+            background-color: #555;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .submenu li {
+            list-style: none;
+        }
+        .submenu li a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #555;
+        }
+        .submenu li:last-child a {
+            border-bottom: none;
+        }
+        .submenu li a:hover {
+            background-color: #666;
+        }
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .content p {
+            line-height: 1.8;
+            color: #555;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin: 30px auto;
+            padding: 12px 25px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            width: fit-content;
+        }
+        .back-link:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Navigation Menu</h1>
+
+    <nav>
+        <ul>
+            <li class="menu-item">
+                <a href="#">Homework 2</a>
+                <ul class="submenu">
+                    <li><a href="hw2_part1.html">Part 1</a></li>
+                    <li><a href="hw2_part2.html">Part 2</a></li>
+                    <li><a href="hw2_part3.html">Part 3</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Homework 3</a>
+                <ul class="submenu">
+                    <li><a href="hw3_part1.html">Part 1</a></li>
+                    <li><a href="hw3_part2.html">Part 2</a></li>
+                    <li><a href="hw3_extra_Credit.html">Extra credit</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Homework 4</a>
+                <ul class="submenu">
+                    <li><a href="hw4_part1.html">Part 1</a></li>
+                    <li><a href="hw4_part2.html">Part 2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <p>Hover over any of the homework items in the navigation menu above to see the dropdown menu with all available parts. </p>
+        <p>The dropdown menus appear smoothly when you hover over each homework link and disappear when you move your mouse away. </p>
+    </div>
+
+    <a href="hw7.html" class="back-link">Back to Homework 7</a>
+
+    <script>
+        $(document).ready(function() {
+            $('.menu-item').hover(
+                function() {
+                    $(this).find('.submenu').stop(true, true).slideDown(300);
+                },
+                function() {
+                    $(this).find('.submenu').stop(true, true).slideUp(300);
+                }
+            );
+        });
+    </script>
+</body>
+</html>

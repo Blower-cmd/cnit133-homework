@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 7 - Part 1</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        #content-area {
+            flex: 2;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #content-area p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .style-form {
+            flex: 1;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group h3 {
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 1em;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .form-group input[type="radio"],
+        .form-group input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .back-link:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Style Selector</h1>
+
+    <div class="container">
+        <div id="content-area">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        </div>
+
+        <div class="style-form">
+            <div class="form-group">
+                <h3>Background Color</h3>
+                <label><input type="radio" name="bgcolor" value=""> None</label>
+                <label><input type="radio" name="bgcolor" value="#ffe6e6"> Light Pink</label>
+                <label><input type="radio" name="bgcolor" value="#e6f3ff"> Light Blue</label>
+                <label><input type="radio" name="bgcolor" value="#e6ffe6"> Light Green</label>
+            </div>
+
+            <div class="form-group">
+                <h3>Text Style</h3>
+                <label><input type="checkbox" id="underline"> Underline</label>
+                <label><input type="checkbox" id="bold"> Bold</label>
+                <label><input type="checkbox" id="italic"> Italic</label>
+            </div>
+
+            <div class="form-group">
+                <h3>Font Size</h3>
+                <select id="fontsize">
+                    <option value="1em">Normal (1em)</option>
+                    <option value="1.2em">Medium (1.2em)</option>
+                    <option value="1.5em">Large (1.5em)</option>
+                    <option value="2em">Extra Large (2em)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <a href="hw7.html" class="back-link">Back to Homework 7</a>
+
+    <script>
+        $(document).ready(function() {
+            $('input[name="bgcolor"]').change(function() {
+                $('#content-area').css('background-color', $(this).val());
+            });
+
+            $('#underline').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#content-area').css('text-decoration', function(i, val) {
+                        return val + ' underline';
+                    });
+                } else {
+                    $('#content-area').css('text-decoration', function(i, val) {
+                        return val.replace('underline', '').trim();
+                    });
+                }
+            });
+
+            $('#bold').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#content-area').css('font-weight', 'bold');
+                } else {
+                    $('#content-area').css('font-weight', 'normal');
+                }
+            });
+
+            $('#italic').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#content-area').css('font-style', 'italic');
+                } else {
+                    $('#content-area').css('font-style', 'normal');
+                }
+            });
+
+            $('#fontsize').change(function() {
+                $('#content-area').css('font-size', $(this).val());
+            });
+        });
+    </script>
+</body>
+</html>
